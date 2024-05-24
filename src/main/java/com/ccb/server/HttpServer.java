@@ -37,7 +37,7 @@ public class HttpServer {
                     })
                     .childOption(ChannelOption.SO_KEEPALIVE, true);
             ChannelFuture f = b.bind().sync();
-            System.out.println("Http Server started， Listening on " + port);
+            System.out.println("Http Server started, Listening on " + port);
             f.channel().closeFuture().sync();
         } finally {
             workerGroup.shutdownGracefully();
