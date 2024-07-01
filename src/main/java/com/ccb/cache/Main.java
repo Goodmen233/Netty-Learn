@@ -5,6 +5,7 @@ import com.google.common.cache.CacheBuilder;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Scanner;
+import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
@@ -27,6 +28,7 @@ public class Main {
     /**
      * 缓存过期，size！=0，但asMap是空
      *  因为size是一个近似值，asMap()视图可以遍历缓存中的每个元素，因此可以跳过等待清理的无效条目。
+     *  但是asMap()的size还是不可信...
      * @param args
      */
     public static void main(String[] args) {
@@ -48,8 +50,10 @@ public class Main {
                 String value = arr[2];
                 cache.put(key, value);
             } else if (input.startsWith("all")) {
-                logger.info("all:" + cache.asMap().keySet());
-                logger.info("all:" + cache.asMap().values());
+                ConcurrentMap<String, String> map = cache.asMap();
+                logger.info("all:" + map.keySet());
+                logger.info("all:" + map.values());
+                System.out.println("size:"+ map.values().isEmpty());
             } else if (input.startsWith("size")) {
                 logger.info(" size: " + cache.size());
             }
