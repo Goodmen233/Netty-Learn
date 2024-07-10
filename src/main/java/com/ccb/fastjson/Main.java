@@ -18,6 +18,7 @@ public class Main {
         Wrap<Cat> wrapCatOne = Wrap.<Cat>builder().cat(catOne).content("test").build();
         String jsonString = JSON.toJSONString(wrapCatOne);
         System.out.println(jsonString);
+
         Wrap<Object> wrapCat = JSON.parseObject(jsonString, Wrap.class);
         System.out.println(JSON.toJSONString(wrapCat, SerializerFeature.WriteMapNullValue));
 
